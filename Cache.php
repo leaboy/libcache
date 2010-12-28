@@ -8,6 +8,8 @@
  * @license    http://www.gnu.org/licenses/gpl.html     GPL 3
  */
 
+define('DIR_SEP', DIRECTORY_SEPARATOR);
+
 require_once('Cache_Abstract.php');
 require_once('File.php');
 require_once('Memcached.php');
@@ -104,45 +106,3 @@ final class Cache
     }
 
 }
-
-
-# usage:
-
-$key = 'test';
-$value = array('libCache', '压缩');
-
-
-# file cache
-$cache = Cache::initCache();    # 初始化缓存类，默认是HQ_Cache_File，也可以是HQ_Cache_Memcached
-
-$cache->setNode(range(1,100));  # 设置子节点数组
-#$cache->setOption(array('compress'=>true));    # 数据压缩
-#$cache->setOption(array('activeTime'=>3600, 'cacheDir'=>'MyCache'));   # 设置默认参数
-
-$cache->write($key, $value);    # 写缓存
-$data = $cache->read($key);     # 读缓存
-print_r($data);
-
-#$cache->_delete($key); # 删除缓存
-#$cache->_empty();      # 清空缓存
-
-
-/*
-# memcached
-$cache = Cache::initCache('HQ_Cache_Memcached');
-
-$cache->setNode(
-    array(
-        // IP:PORT:PERSISTANT
-        '127.0.0.1:11211:false',
-        '127.0.0.1:11212:false',
-        '127.0.0.1:11213:false'
-    )
-);
-
-$cache->write($key, $value);
-$data = $cache->read($key);
-$cache->_delete($key);
-print_r($data);
-
-*/

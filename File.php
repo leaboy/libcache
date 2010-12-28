@@ -106,7 +106,7 @@ class HQ_Cache_File extends HQ_Cache_Abstract
         $files = scandir($cacheDir);
         foreach ($files as $file)
         {
-            $item = $cacheDir . '/' . $file;
+            $item = $cacheDir . DIR_SEP . $file;
 
             if (is_dir($item) && $file != '.' && $file != '..')
             {
@@ -129,13 +129,13 @@ class HQ_Cache_File extends HQ_Cache_Abstract
     protected function getFile($key)
     {
         $this->_hash && $subDir = $this->_hash->lookup($key);
-        $subDir && $subDir = '/' . md5($subDir);
+        $subDir && $subDir = DIR_SEP . md5($subDir);
         $cachePath = $this->_options['cacheDir'] . $subDir;
 
         if (!$this->checkPath($cachePath))
             return false;
 
-        return $cachePath . '/' . md5($key);
+        return $cachePath . DIR_SEP . md5($key);
     }
 
     /**
