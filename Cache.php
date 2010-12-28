@@ -109,13 +109,14 @@ final class Cache
 # usage:
 
 $key = 'test';
-$value = array('呵呵', '轰轰');
+$value = array('libCache', '压缩');
 
 
 # file cache
 $cache = Cache::initCache();    # 初始化缓存类，默认是HQ_Cache_File，也可以是HQ_Cache_Memcached
 
 $cache->setNode(range(1,100));  # 设置子节点数组
+#$cache->setOption(array('compress'=>true));    # 数据压缩
 #$cache->setOption(array('activeTime'=>3600, 'cacheDir'=>'MyCache'));   # 设置默认参数
 
 $cache->write($key, $value);    # 写缓存

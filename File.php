@@ -20,7 +20,8 @@ class HQ_Cache_File extends HQ_Cache_Abstract
     protected $_options = array(
        'activeTime' => 86400,   # 缓存生存周期(秒)，默认1天
        'cacheDir' => 'cache',   # 缓存文件目录
-       'cacheDirMode' => 0777   # 缓存目录权限
+       'cacheDirMode' => 0777,  # 缓存目录权限
+       'compress' => false  # 是否压缩
     );
 
     /**
@@ -48,6 +49,7 @@ class HQ_Cache_File extends HQ_Cache_Abstract
         if (!is_readable($cacheFile) || !$cacheData = @file_get_contents($cacheFile))
             return false;
 
+        $this->_options['compress'] && $cacheData = @gzinflate($cacheData);
         $cacheData = unserialize($cacheData);
 
         if ($cacheData['activeTime'] < time())
@@ -73,6 +75,8 @@ class HQ_Cache_File extends HQ_Cache_Abstract
 
         $cacheData = array('activeTime' => time()+$this->_options['activeTime'], 'data' => $value);
         $cacheData = serialize($cacheData);
+
+        $this->_options['compress'] && $cacheData = gzdeflate($cacheData);
 
         return file_put_contents($this->getFile($key), $cacheData, LOCK_EX);
     }
