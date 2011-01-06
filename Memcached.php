@@ -115,10 +115,7 @@ class HQ_Cache_Memcached extends HQ_Cache_Abstract
         @$conn = $mode ? $this->_memcache->pconnect($ip, $port) : $this->_memcache->connect($ip, $port);
         unset($server, $ip, $port, $mode);
 
-        if (!$conn)
-            return false;
-
-        return $key;
+        return $conn ? $key : false;
     }
 
     /**
