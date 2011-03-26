@@ -34,16 +34,17 @@ abstract class HQ_Cache_Abstract
      * @param  string   $key
      * @return mixed|false
      */
-    public function read($key) {}
+    abstract public function read($key);
 
     /**
      * Ð´Èë»º´æÊý¾Ý
      *
      * @param  string   $key
      * @param  mixed  $value
+     * @param  int  $time
      * @return boolean
      */
-    public function write($key, $value) {}
+    abstract public function write($key, $value, $time = null);
 
     /**
      * É¾³ý»º´æ
@@ -51,12 +52,12 @@ abstract class HQ_Cache_Abstract
      * @param  string   $key
      * @return boolean
      */
-    public function _delete($key) {}
+    abstract public function _delete($key);
 
     /**
      * Çå¿Õ»º´æ
      *
      * @return boolean
      */
-    public function _empty() {}
+    abstract public function _empty();
 }

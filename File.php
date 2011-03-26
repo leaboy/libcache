@@ -52,7 +52,7 @@ class HQ_Cache_File extends HQ_Cache_Abstract
         $this->_options['compress'] && $cacheData = @gzinflate($cacheData);
         $cacheData = unserialize($cacheData);
 
-        if ($cacheData['activeTime'] < time())
+        if ($cacheData['activeTime'] > 0 && $cacheData['activeTime'] < time())
         {
             $this->_delete($key);
             return false;
@@ -66,14 +66,20 @@ class HQ_Cache_File extends HQ_Cache_Abstract
      *
      * @param  string   $key
      * @param  mixed  $value
+     * @param  int  $time
      * @return boolean
      */
-    public function write($key, $value)
+    public function write($key, $value, $time = null)
     {
         if (!$this->checkPath($this->_options['cacheDir']))
             return false;
 
-        $cacheData = array('activeTime' => time()+$this->_options['activeTime'], 'data' => $value);
+        if (!$time == -1) {
+            $time = intval($time);
+            $time = $time > 0 ? time() + $time : time() + $this->_options['activeTime'];
+        }
+
+        $cacheData = array('activeTime' => $time, 'data' => $value);
         $cacheData = serialize($cacheData);
 
         $this->_options['compress'] && $cacheData = gzdeflate($cacheData);

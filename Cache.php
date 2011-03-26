@@ -68,9 +68,10 @@ final class Cache
      *
      * @param string $key
      * @param mixed $value
+     * @param int  $time
      */
-    public function write($key, $value) {
-        $this->_storage->write($key, $value);
+    public function write($key, $value, $time = null) {
+        $this->_storage->write($key, $value, $time);
     }
 
     /**

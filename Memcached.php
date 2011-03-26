@@ -64,12 +64,16 @@ class HQ_Cache_Memcached extends HQ_Cache_Abstract
      *
      * @param  string   $key
      * @param  mixed  $value
+     * @param  int  $time
      * @return boolean
      */
-    public function write($key, $value)
+    public function write($key, $value, $time = null)
     {
+        $time = intval($time);
+        $time or $time = $this->_options['activeTime'];
+
         $key = $this->_connect($key);
-        $result = $this->_memcache->set($key, $value, $this->_options['compress'], $this->_options['activeTime']);
+        $result = $this->_memcache->set($key, $value, $this->_options['compress'], $time);
         $this->_disconnect();
 
         return $result;

@@ -15,7 +15,8 @@ $cache->setNode(range(1,100));  # 设置子节点数组
 #$cache->setOption(array('compress'=>true));    # 数据压缩
 #$cache->setOption(array('activeTime'=>3600, 'cacheDir'=>'MyCache'));   # 设置默认参数
 
-$cache->write($key, $value);    # 写缓存
+#$cache->write($key, $value);    # 写缓存
+$cache->write($key, $value, -1);    # 写缓存,不过期
 $data = $cache->read($key);     # 读缓存
 print_r($data);
 
