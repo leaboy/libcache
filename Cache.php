@@ -45,7 +45,7 @@ final class Cache
     /**
      * @return hash
      */
-    public public function setNode(array $node)
+    public function setNode(array $node)
     {
         $hash = new Flexihash();
         $hash->addTargets($node);
