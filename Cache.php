@@ -8,14 +8,15 @@
  * @license    http://www.gnu.org/licenses/gpl.html     GPL 3
  */
 
+define('BASEDIR', dirname(__FILE__));
 define('DIR_SEP', DIRECTORY_SEPARATOR);
 
-require_once('Cache_Abstract.php');
-require_once('File.php');
-require_once('Memcached.php');
+require_once(BASEDIR.DIR_SEP.'Cache_Abstract.php');
+require_once(BASEDIR.DIR_SEP.'File.php');
+require_once(BASEDIR.DIR_SEP.'Memcached.php');
 
 # consistent hashing
-require_once('Hash.php');
+require_once(BASEDIR.DIR_SEP.'Hash.php');
 
 
 class CacheException extends Exception {}
