@@ -8,7 +8,7 @@
  * @license    http://www.gnu.org/licenses/gpl.html     GPL 3
  */
 
-class HQ_Cache_File extends HQ_Cache_Abstract
+class File extends Cache_Abstract
 {
     public $_hash = null;
 

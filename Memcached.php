@@ -8,7 +8,7 @@
  * @license    http://www.gnu.org/licenses/gpl.html     GPL 3
  */
 
-class HQ_Cache_Memcached extends HQ_Cache_Abstract
+class Memcached extends Cache_Abstract
 {
     public $_hash = null;
 

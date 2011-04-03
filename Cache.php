@@ -12,11 +12,6 @@ define('BASEDIR', dirname(__FILE__));
 define('DIR_SEP', DIRECTORY_SEPARATOR);
 
 require_once(BASEDIR.DIR_SEP.'Cache_Abstract.php');
-require_once(BASEDIR.DIR_SEP.'File.php');
-require_once(BASEDIR.DIR_SEP.'Memcached.php');
-
-# consistent hashing
-require_once(BASEDIR.DIR_SEP.'Hash.php');
 
 
 class CacheException extends Exception {}
@@ -34,8 +29,18 @@ final class Cache
     /**
      * @return Cache
      */
-    static public function initCache($cacheClass = 'HQ_Cache_File')
+    static public function initCache($cacheClass = 'File')
     {
+        if (!is_file(BASEDIR.DIR_SEP.$cacheClass.'.php')) {
+            echo "File '{$cacheClass}.php' is not exits!"; exit;
+        }
+
+        require_once(BASEDIR.DIR_SEP.$cacheClass.'.php');
+
+        if (!class_exists($cacheClass)) {
+            echo "Class '{$cacheClass}' is not exits!"; exit;
+        }
+
         return new self($cacheClass);
     }
 
@@ -48,6 +53,9 @@ final class Cache
      */
     public function setNode(array $node)
     {
+        # consistent hashing
+        require_once(BASEDIR.DIR_SEP.'Hash.php');
+
         $hash = new Flexihash();
         $hash->addTargets($node);
 

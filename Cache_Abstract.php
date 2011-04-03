@@ -8,7 +8,7 @@
  * @license    http://www.gnu.org/licenses/gpl.html     GPL 3
  */
 
-abstract class HQ_Cache_Abstract
+abstract class Cache_Abstract
 {
 
     public function __construct(array $options = array())
