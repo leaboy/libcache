@@ -26,7 +26,7 @@ print_r($data);
 
 /*
 # memcached
-$cache = Cache::initCache('HQ_Cache_Memcached');
+$cache = Cache::initCache('Memcached');
 
 $cache->setNode(
     array(
@@ -39,7 +39,7 @@ $cache->setNode(
 
 $cache->write($key, $value);
 $data = $cache->read($key);
-$cache->_delete($key);
+#$cache->_delete($key);
 print_r($data);
 
 */
